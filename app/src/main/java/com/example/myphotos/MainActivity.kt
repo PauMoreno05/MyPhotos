@@ -24,7 +24,7 @@ import com.example.myphotos.ui.theme.MyPhotosTheme
 
 data class Photo(
     val id: Int,
-    @DrawableRes val resId: Int, // ID del recurso drawable
+    @DrawableRes val resId: Int,
     val description: String = "Imagen de la galería"
 )
 
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
             MyPhotosTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background // Fondo blanco o del tema
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     GalleryScreen()
                 }
@@ -66,15 +66,15 @@ fun GalleryScreen() {
                 .height(200.dp)
                 .background(Color.White)
                 .padding(2.dp),
-            horizontalArrangement = Arrangement.spacedBy(2.dp) // Espacio entre miniaturas
+            horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             items(photoList) { photo ->
                 Image(
                     painter = painterResource(id = photo.resId),
                     contentDescription = photo.description,
                     modifier = Modifier
-                        .size(180.dp) // Tamaño de cada miniatura
-                        .clickable { selectedPhotoId = photo.id } // 💡 Al hacer click, actualiza la imagen seleccionada
+                        .size(180.dp)
+                        .clickable { selectedPhotoId = photo.id }
                 )
             }
         }
@@ -86,7 +86,7 @@ fun GalleryScreen() {
                 .fillMaxWidth()
                 .weight(1f)
                 .background(Color.White),
-            contentAlignment = Alignment.Center // Centra la imagen dentro del Box
+            contentAlignment = Alignment.Center
         ) {
             val currentSelectedPhoto = photoList.find { it.id == selectedPhotoId }
 
@@ -94,7 +94,7 @@ fun GalleryScreen() {
                 Image(
                     painter = painterResource(id = currentSelectedPhoto.resId),
                     contentDescription = currentSelectedPhoto.description,
-                    contentScale = ContentScale.Fit, // Usa FIT para que la imagen quepa dentro del marco sin cortarse
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxSize(1f)
 
