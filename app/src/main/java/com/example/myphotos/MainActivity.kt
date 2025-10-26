@@ -37,27 +37,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GalleryScreen()
+                    Pantalla()
                 }
             }
         }
     }
 }
 
-val photoList = listOf(
-    Photo(1, R.drawable.image1, "Ballena"),
-    Photo(2, R.drawable.image2, "Flores"),
-    Photo(3, R.drawable.image3, "Río"),
-    Photo(4, R.drawable.image4, "Árboles de otoño"),
-    Photo(5, R.drawable.image5, "Bosque"),
-    Photo(6, R.drawable.image6, "Montaña"),
-    Photo(7, R.drawable.image7, "Atardecer"),
-    Photo(8, R.drawable.image8, "Playa")
+val fotos = listOf(
+    Photo(1, R.drawable.image1, "foto1"),
+    Photo(2, R.drawable.image2, "foto2"),
+    Photo(3, R.drawable.image3, "foto3"),
+    Photo(4, R.drawable.image4, "foto4"),
+    Photo(5, R.drawable.image5, "foto5"),
+    Photo(6, R.drawable.image6, "foto5"),
+    Photo(7, R.drawable.image7, "foto6"),
+    Photo(8, R.drawable.image8, "foto7")
 )
 
 @Composable
-fun GalleryScreen() {
-    var selectedPhotoId by remember { mutableStateOf(photoList.first().id) }
+fun Pantalla() {
+    var fotoSelecionada by remember { mutableStateOf(fotos.first().id) }
 
     Column(modifier = Modifier.fillMaxSize()) {
         LazyRow(
@@ -68,13 +68,13 @@ fun GalleryScreen() {
                 .padding(2.dp),
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            items(photoList) { photo ->
+            items(fotos) { photo ->
                 Image(
                     painter = painterResource(id = photo.resId),
                     contentDescription = photo.description,
                     modifier = Modifier
                         .size(180.dp)
-                        .clickable { selectedPhotoId = photo.id }
+                        .clickable { fotoSelecionada = photo.id }
                 )
             }
         }
@@ -88,12 +88,12 @@ fun GalleryScreen() {
                 .background(Color.White),
             contentAlignment = Alignment.Center
         ) {
-            val currentSelectedPhoto = photoList.find { it.id == selectedPhotoId }
+            val fotoPorDefecto = fotos.find { it.id == fotoSelecionada }
 
-            if (currentSelectedPhoto != null) {
+            if (fotoPorDefecto != null) {
                 Image(
-                    painter = painterResource(id = currentSelectedPhoto.resId),
-                    contentDescription = currentSelectedPhoto.description,
+                    painter = painterResource(id = fotoPorDefecto.resId),
+                    contentDescription = fotoPorDefecto.description,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxSize(1f)
@@ -107,8 +107,8 @@ fun GalleryScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun GalleryScreenPreview() {
+fun PantallaPreview() {
     MyPhotosTheme {
-        GalleryScreen()
+        Pantalla()
     }
 }
